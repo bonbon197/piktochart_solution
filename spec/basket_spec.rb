@@ -54,4 +54,30 @@ RSpec.describe Basket do
   it "raises error for invalid product code" do
     expect { subject.add("XYZ") }.to raise_error("Invalid product code: XYZ")
   end
+
+  context "edge cases" do
+    it "returns $0.00 for empty basket" do
+      expect(subject.total).to eq("$4.95")
+    end
+
+    it "applies offer only to full pairs" do
+      add_items(subject, %w[R01 R01 R01])
+      expect(subject.total).to eq("$85.32")
+    end
+
+    it "applies multiple offers correctly" do
+      add_items(subject, %w[R01 R01 R01 R01])
+      expect(subject.total).to eq("$98.85")
+    end
+
+    it "does not apply offer to unrelated product" do
+      add_items(subject, %w[G01 G01])
+      expect(subject.total).to eq("$54.85") # 24.95 * 2 + 4.95 delivery
+    end
+
+    it "handles floating point precision correctly" do
+      add_items(subject, %w[R01 R01 R01])
+      expect(subject.total).to match(/^\$\d+\.\d{2}$/)
+    end
+  end
 end
