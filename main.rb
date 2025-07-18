@@ -8,3 +8,10 @@ products = [
 ]
 
 offers = [BuyOneGetHalfOff.new("R01")]
+
+
+delivery_rule = DeliveryRule.new([
+  { threshold: 90.0, cost: 0.0 },
+  { threshold: 50.0, cost: 2.95 },
+  { threshold: 0.0, cost: 4.95 }
+])
