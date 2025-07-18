@@ -11,6 +11,8 @@ class BuyOneGetHalfOff < Offer
 
   def apply(products)
     matched = products.select { |p| p.code == @code }
+    return 0.0 if matched.empty?
+    
     count = matched.size / 2
     discount = (matched.first.price / 2.0) * count
     discount.round(2)

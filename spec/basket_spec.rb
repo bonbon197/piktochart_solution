@@ -1,4 +1,6 @@
 require 'rspec'
+require 'active_support/core_ext/hash/indifferent_access'
+require 'active_support/core_ext/enumerable'
 require_relative '../lib/product'
 require_relative '../lib/offer'
 require_relative '../lib/delivery_rule'
